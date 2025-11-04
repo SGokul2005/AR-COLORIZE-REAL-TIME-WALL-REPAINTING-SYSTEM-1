@@ -101,12 +101,12 @@ class ARColorize:
             '1': (255, 255, 255),  # White
             '2': (220, 248, 255),  # Cream
             '3': (211, 211, 211),  # Light Gray
-            '4': (235, 206, 135),  # Sky Blue
-            '5': (152, 251, 152),  # Mint Green
-            '6': (185, 218, 255),  # Peach
-            '7': (250, 230, 230),  # Lavender
-            '8': (80, 127, 255),   # Coral
-            '9': (131, 193, 157),  # Sage Green
+            '4': (235, 206, 135),  # Sky Blue (BGR)
+            '5': (152, 255, 152),  # Mint Green (BGR)
+            '6': (185, 218, 255),  # Peach (BGR)
+            '7': (250, 230, 230),  # Lavender (BGR)
+            '8': (80, 127, 255),   # Coral (BGR)
+            '9': (131, 193, 157),  # Sage Green (BGR)
         }
         
         while self.running:

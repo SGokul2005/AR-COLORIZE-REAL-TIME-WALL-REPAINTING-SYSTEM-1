@@ -244,10 +244,10 @@
         <div class="resources">
           <h2 style="margin-top: 20px;">Project Resources</h2>
           <ul>
-            <li><a href="https://docs.google.com/presentation/d/1lm_x59cE4T_IUTqp2TxGHdF8QPpstSYu/edit?usp=sharing&ouid=113325350073162535117&rtpof=true&sd=true" target="_blank">Main Presentation</a></li>
-            <li><a href="https://docs.google.com/presentation/d/1G2nbHoXkZ7wLqvfVeKmrSqiUcdFWBBaT/edit?usp=sharing&ouid=113325350073162535117&rtpof=true&sd=true" target="_blank">Pitch Deck</a></li>
-            <li><a href="https://docs.google.com/document/d/1eZOTEHgEvpsorTx_cRki9kjD8IY8d2Bw/edit?usp=drive_link&ouid=113325350073162535117&rtpof=true&sd=true" target="_blank">Project Documentation</a></li>
-            <li><a href="https://drive.google.com/drive/folders/10hGKmjirxh1mM4tHEsWn4F8LNMDriFOm?usp=drive_link" target="_blank">Google Drive Folder</a></li>
+            <li><a href="https://docs.google.com/presentation/d/1lm_x59cE4T_IUTqp2TxGHdF8QPpstSYu/edit?usp=sharing&ouid=113325350073162535117&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Main Presentation</a></li>
+            <li><a href="https://docs.google.com/presentation/d/1G2nbHoXkZ7wLqvfVeKmrSqiUcdFWBBaT/edit?usp=sharing&ouid=113325350073162535117&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Pitch Deck</a></li>
+            <li><a href="https://docs.google.com/document/d/1eZOTEHgEvpsorTx_cRki9kjD8IY8d2Bw/edit?usp=drive_link&ouid=113325350073162535117&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Project Documentation</a></li>
+            <li><a href="https://drive.google.com/drive/folders/10hGKmjirxh1mM4tHEsWn4F8LNMDriFOm?usp=drive_link" target="_blank" rel="noopener noreferrer">Google Drive Folder</a></li>
           </ul>
         </div>
       </div>
@@ -352,6 +352,11 @@
         updateStatus('Camera stopped - Click "Start Camera" to begin again');
       });
       
+      // Image processing constants
+      const BRIGHTNESS_THRESHOLD = 100;
+      const ORIGINAL_WEIGHT = 0.3;
+      const OVERLAY_WEIGHT = 0.7;
+      
       function processVideo() {
         if (!isProcessing) return;
         
@@ -374,11 +379,11 @@
           // Simple threshold-based "wall detection" (detects lighter areas)
           const brightness = (data[i] + data[i + 1] + data[i + 2]) / 3;
           
-          if (brightness > 100) { // Assuming walls are brighter
+          if (brightness > BRIGHTNESS_THRESHOLD) { // Assuming walls are brighter
             // Apply color overlay with blending
-            data[i] = data[i] * 0.3 + rgb.r * 0.7;
-            data[i + 1] = data[i + 1] * 0.3 + rgb.g * 0.7;
-            data[i + 2] = data[i + 2] * 0.3 + rgb.b * 0.7;
+            data[i] = data[i] * ORIGINAL_WEIGHT + rgb.r * OVERLAY_WEIGHT;
+            data[i + 1] = data[i + 1] * ORIGINAL_WEIGHT + rgb.g * OVERLAY_WEIGHT;
+            data[i + 2] = data[i + 2] * ORIGINAL_WEIGHT + rgb.b * OVERLAY_WEIGHT;
           }
         }
         
